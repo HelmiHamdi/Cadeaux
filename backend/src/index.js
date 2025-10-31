@@ -16,9 +16,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Correction __dirname pour ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+const __dirname = path.resolve();
 
 app.use(cors());
 app.use(express.json());
@@ -31,15 +30,14 @@ app.use("/api/admin", adminRoutes);
 
 // --- Servir React en production ---
 if (process.env.NODE_ENV === "production") {
-  // ✅ Utilise un chemin absolu correct pour Render
-  const frontendPath = path.resolve(__dirname, "../frontend/dist");
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.use(express.static(frontendPath));
-
-  app.use((req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
+  app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
+
+
 
 
 
