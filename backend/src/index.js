@@ -31,14 +31,15 @@ app.use("/api/admin", adminRoutes);
 
 // --- Servir React en production ---
 if (process.env.NODE_ENV === "production") {
-  const frontendPath = path.join(__dirname, "../frontend/dist");
+  const frontendPath = path.join(__dirname, "../../frontend/dist");
   app.use(express.static(frontendPath));
 
-  // ✅ Compatible Express 5
-  app.use((req, res) => {
+  // Compatible Express 5 : utiliser "/*" au lieu de "*"
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
+
 
 // --- Route racine test API ---
 app.get("/api", (req, res) => {
