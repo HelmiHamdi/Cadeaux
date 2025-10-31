@@ -31,12 +31,16 @@ app.use("/api/admin", adminRoutes);
 
 // --- Servir React en production ---
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  // ✅ Utilise un chemin absolu correct pour Render
+  const frontendPath = path.resolve(__dirname, "../frontend/dist");
 
-  app.get("/{*any}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  app.use(express.static(frontendPath));
+
+  app.use((req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
+
 
 
 
