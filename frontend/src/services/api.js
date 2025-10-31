@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://gifit-game-app.onrender.com/api';
+const API_BASE_URL = 'https://game-gifit-app.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
