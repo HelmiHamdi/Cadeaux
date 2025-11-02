@@ -47,7 +47,7 @@ app.get("/api", (req, res) => {
   res.send("🎁 Gift Game API is running!");
 });
 
-app.listen(PORT,'0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   connectDB();
 });
