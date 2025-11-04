@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://bambou-e8x7.onrender.com/api';
+const API_BASE_URL = 'https://cadeaurama.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
