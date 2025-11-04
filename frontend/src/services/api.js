@@ -1,24 +1,20 @@
 import axios from 'axios';
 
-// URL de base - vérifie bien qu'il n'y a pas de /api en double
-const API_BASE_URL = 'https://cadeaurama.onrender.com';
+const API_BASE_URL = 'http://localhost:5000/api';
+
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json', 
   },
-  timeout: 8000, // Réduit le timeout à 8 secondes
 });
 
 export const giftService = {
-  getAllGifts: () => api.get('/api/gifts'), // Note le /api ici
-  
+  getAllGifts: () => api.get('/gifts'),
   participate: async (giftId, data) => {
     try {
-      const response = await api.post(`/api/gifts/${giftId}/participate`, data, {
-        timeout: 10000 // 10 secondes max pour la participation
-      });
+      const response = await api.post(`/gifts/${giftId}/participate`, data);
       return response; 
     } catch (error) {
       if (error.response?.status === 400) {
