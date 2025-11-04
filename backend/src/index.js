@@ -10,6 +10,8 @@ import giftRoutes from "./routes/giftRoutes.js";
 import weeklyDrawRoutes from "./routes/weeklyDrawRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import codeRoutes from "./routes/codeRoutes.js";
+import winnerRoutes from "./routes/winnerRoutes.js";
 
 dotenv.config();
 
@@ -31,7 +33,8 @@ app.use("/api/gifts", giftRoutes);
 app.use("/api/draws", weeklyDrawRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
-
+app.use("/api/codes", codeRoutes);
+app.use("/api/winners", winnerRoutes); 
 // --- Servir React en production ---
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

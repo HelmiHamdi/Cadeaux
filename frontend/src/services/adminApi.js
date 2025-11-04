@@ -1,19 +1,19 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE_URL = 'https://cadeaurama.onrender.com/api';
+const API_BASE_URL = "http://localhost:5000/api";
 
 // Créer instance axios
 const adminApi = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 // Intercepteur pour ajouter le token automatiquement
 adminApi.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('admin_token');
+    const token = localStorage.getItem("admin_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -30,9 +30,9 @@ adminApi.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Token invalide ou expiré
-      localStorage.removeItem('admin_token');
-      localStorage.removeItem('admin_data');
-      window.location.href = '/admin/login';
+      localStorage.removeItem("admin_token");
+      localStorage.removeItem("admin_data");
+      window.location.href = "/admin/login";
     }
     return Promise.reject(error);
   }
@@ -40,39 +40,46 @@ adminApi.interceptors.response.use(
 
 export const authService = {
   login: async (email, password) => {
-    const response = await adminApi.post('/auth/login', { email, password });
-    
+    const response = await adminApi.post("/auth/login", { email, password });
+
     if (response.data.token) {
-      localStorage.setItem('admin_token', response.data.token);
-      localStorage.setItem('admin_data', JSON.stringify(response.data.admin));
+      localStorage.setItem("admin_token", response.data.token);
+      localStorage.setItem("admin_data", JSON.stringify(response.data.admin));
     }
-    
+
     return response.data;
   },
 
   logout: () => {
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('admin_data');
+    localStorage.removeItem("admin_token");
+    localStorage.removeItem("admin_data");
   },
 
   getProfile: () => {
-    const adminData = localStorage.getItem('admin_data');
+    const adminData = localStorage.getItem("admin_data");
     return adminData ? JSON.parse(adminData) : null;
   },
 
   isAuthenticated: () => {
-    return !!localStorage.getItem('admin_token');
-  }
+    return !!localStorage.getItem("admin_token");
+  },
 };
 
 export const adminService = {
-  getDashboard: () => adminApi.get('/admin/dashboard'),
-  addNewGifts: (data) => adminApi.post('/admin/gifts', data),
+  getDashboard: () => adminApi.get("/admin/dashboard"),
+  addNewGifts: (data) => adminApi.post("/admin/gifts", data),
   updateGift: (id, data) => adminApi.put(`/admin/gifts/${id}`, data),
   deleteGift: (id) => adminApi.delete(`/admin/gifts/${id}`),
-  getGiftParticipants: (giftId) => adminApi.get(`/admin/gifts/${giftId}/participants`),
-  
-  triggerManualDraw: () => adminApi.post('/admin/draws/manual')
+  getGiftParticipants: (giftId) =>
+    adminApi.get(`/admin/gifts/${giftId}/participants`),
+
+  triggerManualDraw: () => adminApi.post("/admin/draws/manual"),
+  getGiftCodes: (giftId) => adminApi.get(`/codes/gift/${giftId}`),
+  searchByCode: (code) => adminApi.get(`/codes/search/${code}`),
+  searchByCodes: (codes) => adminApi.post("/codes/search-multiple", { codes }),
+  selectManualWinners: (winnersData) =>
+    adminApi.post("/winners/select-winners", winnersData),
+  getAllWinners: () => adminApi.get("/winners/all-winners"),
 };
 
 export default adminApi;

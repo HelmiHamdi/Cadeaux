@@ -60,47 +60,54 @@ import Gift from "../models/Gift.js";
 };*/
 export const getWeeklyWinners = async (req, res) => {
   try {
-    console.log("🎯 TEST - Récupération de TOUS les tirages...");
+    console.log("🎯 Récupération des gagnants (un par cadeau)...");
     
-    // TEMPORAIRE: Récupérer TOUS les tirages au lieu de seulement cette semaine
-    const weeklyDraws = await WeeklyDraw.find({
-      isDrawn: true
-    })
-    .populate('giftId')
-    .sort({ drawDate: -1 }) // Les plus récents en premier
-    .limit(5); // Limiter à 5 comme sur le frontend
+    // Récupérer TOUS les cadeaux actifs
+    const activeGifts = await Gift.find();
+    console.log(`🎁 ${activeGifts.length} cadeaux actifs trouvés`);
 
-    console.log(`📊 ${weeklyDraws.length} tirages trouvés dans la base`);
+    // Récupérer les gagnants
+    const winners = await WeeklyDraw.find({ isDrawn: true })
+      .sort({ drawDate: -1 })
+      .populate('giftId');
 
-    // Si pas de tirages du tout, retourner les cadeaux actuels
-    if (weeklyDraws.length === 0) {
-      console.log("❌ Aucun tirage trouvé dans la base");
-      const gifts = await Gift.find().limit(5);
-      const winners = gifts.map(gift => ({
-        giftId: gift._id,
-        giftTitle: gift.title,
-        winnerName: "En attente",
-        winnerCode: null,
-        isDrawn: false
-      }));
-      return res.json(winners);
-    }
+    console.log(`📊 ${winners.length} tirages trouvés dans la base`);
 
-    // Formater les gagnants
-    const winners = weeklyDraws.map(draw => {
-      console.log(`🏆 Tirage trouvé: ${draw.giftTitle} - ${draw.winnerName} - Code: ${draw.winnerCode}`);
-      return {
-        giftId: draw.giftId?._id || draw.giftId,
-        giftTitle: draw.giftTitle || draw.giftId?.title || 'Cadeau sans titre',
-        winnerName: draw.winnerName,
-        winnerCode: draw.winnerCode,
-        isDrawn: true,
-        drawDate: draw.drawDate
-      };
+    // Créer un Map pour avoir un gagnant par cadeau (le plus récent)
+    const winnersByGift = new Map();
+    winners.forEach(draw => {
+      const giftId = draw.giftId?._id?.toString() || draw.giftId?.toString();
+      if (giftId && !winnersByGift.has(giftId)) {
+        winnersByGift.set(giftId, draw);
+      }
     });
 
-    console.log("✅ Envoi des gagnants au frontend:", winners);
-    res.json(winners);
+    // Construire le résultat final : un élément par cadeau actif
+    const results = activeGifts.map(gift => {
+      const winnerDraw = winnersByGift.get(gift._id.toString());
+      
+      if (winnerDraw) {
+        return {
+          giftId: gift._id,
+          giftTitle: gift.title,
+          winnerName: winnerDraw.winnerName,
+          winnerCode: winnerDraw.winnerCode,
+          isDrawn: true,
+          drawDate: winnerDraw.drawDate
+        };
+      } else {
+        return {
+          giftId: gift._id,
+          giftTitle: gift.title,
+          winnerName: "En attente",
+          winnerCode: null,
+          isDrawn: false
+        };
+      }
+    });
+
+    console.log(`✅ Envoi de ${results.length} résultats au frontend`);
+    res.json(results);
 
   } catch (err) {
     console.error('❌ Erreur:', err);

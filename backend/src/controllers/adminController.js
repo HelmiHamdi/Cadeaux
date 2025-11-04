@@ -1,3 +1,4 @@
+//controllers/adminController.js
 import Gift from "../models/Gift.js";
 import Participant from "../models/Participant.js";
 import WeeklyDraw from "../models/WeeklyDraw.js";

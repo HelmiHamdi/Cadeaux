@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import GiftCard from '../components/GiftCard';
 import ParticipationModal from '../components/ParticipationModal';
-import { giftService, drawService } from '../services/api';
+import { giftService } from '../services/api';
+import { adminService } from '../services/adminApi';
 
 const Home = () => {
   const [gifts, setGifts] = useState([]);
@@ -30,12 +31,17 @@ const Home = () => {
     }
   };
 
-  const fetchWinners = async () => {
+  // Dans useEffect, changer l'appel pour utiliser la nouvelle route
+ const fetchWinners = async () => {
     try {
-      const response = await drawService.getWeeklyWinners();
+      console.log("🏆 Chargement des gagnants...");
+      const response = await adminService.getAllWinners();
+      console.log("📊 Données des gagnants reçues:", response.data);
       setWinners(response.data);
     } catch (error) {
-      console.error('Erreur lors du chargement des gagnants:', error);
+      console.error('❌ Erreur lors du chargement des gagnants:', error);
+      // Fallback : créer des données fictives pour le débogage
+      setWinners([]);
     }
   };
 
