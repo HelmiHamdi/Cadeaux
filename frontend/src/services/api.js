@@ -29,7 +29,7 @@ export const giftService = {
   },
 };
 export const drawService = {
-  getWeeklyWinners: () => api.get('api/draws/winners'),
+  getWeeklyWinners: () => api.get('/draws/winners'),
 };
 
 
