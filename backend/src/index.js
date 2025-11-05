@@ -43,8 +43,8 @@ if (process.env.NODE_ENV === "production") {
   const frontendPath = path.join(__dirname, "../frontend/dist");
   app.use(express.static(frontendPath));
 
-  // ✅ Express 5 : utiliser app.use() au lieu de app.get("*")
-  app.use((req, res, next) => {
+  // ✅ Express 5 compatible fallback route
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
