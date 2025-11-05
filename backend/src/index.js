@@ -18,11 +18,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// ✅ Correction importante : bien définir __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const __dirname = path.resolve();
-
+// --- Middleware ---
 app.use(cors({
-  origin: "*", // Autorise toutes les origines
+  origin: "*",
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -34,26 +36,25 @@ app.use("/api/draws", weeklyDrawRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/codes", codeRoutes);
-app.use("/api/winners", winnerRoutes); 
-// --- Servir React en production ---
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use("/api/winners", winnerRoutes);
 
+// --- Servir le frontend React en production ---
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "../frontend/dist");
+  app.use(express.static(frontendPath));
+
+  // ✅ Cette route wildcard doit être la dernière
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
 
-
-
-
-
-
-// --- Route racine test API ---
+// --- Test route API ---
 app.get("/api", (req, res) => {
   res.send("🎁 Gift Game API is running!");
 });
 
+// --- Démarrage du serveur ---
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   connectDB();
