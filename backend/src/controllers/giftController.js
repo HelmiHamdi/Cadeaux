@@ -53,7 +53,7 @@ export const participateInGift = async (req, res) => {
     });
 
     // Envoyer un email de confirmation
-    await sendEmail(
+   /* await sendEmail(
       email,
       "Votre code de participation 🎁",
       `<h2>Bonjour ${name} ${surname},</h2>
@@ -61,7 +61,7 @@ export const participateInGift = async (req, res) => {
        <p>Votre code unique :</p>
        <h1 style="color:green;">${code}</h1>
        <p>Bonne chance 🍀</p>`
-    );
+    );*/
 
     res.status(201).json({ message: "Participation enregistrée !" });
   } catch (err) {
