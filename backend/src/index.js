@@ -43,11 +43,12 @@ if (process.env.NODE_ENV === "production") {
   const frontendPath = path.join(__dirname, "../frontend/dist");
   app.use(express.static(frontendPath));
 
-  // ✅ Cette route wildcard doit être la dernière
-  app.get("*", (req, res) => {
+  // ✅ Express 5 compatible fallback route
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
+
 
 // --- Test route API ---
 app.get("/api", (req, res) => {
