@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
-
+import { fileURLToPath } from "url";
 
 import "./cron/weeklyDraw.js";
 import { connectDB } from "./lib/db.js";
@@ -36,14 +36,14 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/codes", codeRoutes);
 app.use("/api/winners", winnerRoutes); 
 // --- Servir React en production ---
-/*if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   app.get("/{*any}", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
-*/
+
 
 
 
@@ -51,7 +51,7 @@ app.use("/api/winners", winnerRoutes);
 
 // --- Route racine test API ---
 app.get("/api", (req, res) => {
-  res.redirect(process.env.FRONTEND_URL);
+  res.send("🎁 Gift Game API is running!");
 });
 
 app.listen(PORT, () => {
