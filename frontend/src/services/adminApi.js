@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "cadeaux-production.up.railway.app/api";
+const API_BASE_URL = "https://cadeaux-production.up.railway.app/api";
 
 // Créer instance axios
 const adminApi = axios.create({
