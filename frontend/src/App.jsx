@@ -1,28 +1,37 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Admin from "./pages/Admin";
-import Login from "./pages/AdminLogin"; // si tu as une page login admin
 
 function App() {
   return (
     <Router>
-      <div className="App font-main">
-        {/* Le header s’affiche sauf sur la route /admin */}
-        {window.location.pathname.startsWith("/admin") ? null : <Header />}
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-
-          {/* Routes admin */}
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/login" element={<Login />} />
-        </Routes>
-      </div>
+      <MainApp />
     </Router>
+  );
+}
+
+// ✅ On sépare pour pouvoir utiliser useLocation à l'intérieur du Router
+function MainApp() {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith("/admin");
+
+  return (
+    <div className="App font-main">
+      {/* Header visible sauf sur les pages admin */}
+      {!isAdminPage && <Header />}
+
+      <Routes>
+        {/* Routes publiques */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+
+        {/* Route admin */}
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </div>
   );
 }
 
