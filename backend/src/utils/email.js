@@ -1,27 +1,23 @@
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const sendEmail = async (to, subject, htmlContent) => {
+  const msg = {
+    to,
+    from: process.env.FROM_EMAIL,
+    subject,
+    html: htmlContent,
+  };
+
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
-      },
-    });
-
-    const mailOptions = {
-      from: `"🎁 Gift Game" <${process.env.GMAIL_USER}>`,
-      to,
-      subject,
-      html: htmlContent,
-    };
-
-    await transporter.sendMail(mailOptions);
+    await sgMail.send(msg);
     console.log(`✅ Email envoyé à ${to}`);
   } catch (error) {
-    console.error("❌ Erreur lors de l’envoi de l’email:", error);
-    if (error.response) console.error(error.response);
-    throw new Error("Échec de l’envoi de l’email");
+    console.error("❌ Erreur SendGrid:", error.message);
+    if (error.response) {
+      console.error(error.response.body);
+    }
+    throw new Error("Erreur lors de l’envoi de l’email");
   }
 };
