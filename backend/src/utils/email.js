@@ -1,5 +1,7 @@
-// emailService.js
 import { Resend } from "resend";
+import dotenv from "dotenv";
+
+dotenv.config(); // ⚡ Charger les variables
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -12,7 +14,8 @@ export const sendEmail = async (to, subject, htmlContent) => {
       html: htmlContent,
     });
 
-    console.log(`✅ Email envoyé à ${to} (ID: ${response.data.id})`);
+    console.log(`✅ Email envoyé à ${to}`);
+    console.log(response.data); // Pour debug
   } catch (error) {
     console.error("❌ Erreur Resend:", error.message);
     if (error.response) {
