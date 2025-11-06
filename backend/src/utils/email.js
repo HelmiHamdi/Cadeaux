@@ -1,23 +1,23 @@
-import sgMail from "@sendgrid/mail";
+// emailService.js
+import { Resend } from "resend";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendEmail = async (to, subject, htmlContent) => {
-  const msg = {
-    to,
-    from: process.env.FROM_EMAIL,
-    subject,
-    html: htmlContent,
-  };
-
   try {
-    await sgMail.send(msg);
-    console.log(`✅ Email envoyé à ${to}`);
+    const response = await resend.emails.send({
+      from: process.env.FROM_EMAIL,
+      to,
+      subject,
+      html: htmlContent,
+    });
+
+    console.log(`✅ Email envoyé à ${to} (ID: ${response.data.id})`);
   } catch (error) {
-    console.error("❌ Erreur SendGrid:", error.message);
+    console.error("❌ Erreur Resend:", error.message);
     if (error.response) {
-      console.error(error.response.body);
+      console.error(error.response);
     }
-    throw new Error("Erreur lors de l’envoi de l’email");
+    throw new Error("Erreur lors de l’envoi de l’e-mail");
   }
 };
