@@ -53,15 +53,68 @@ export const participateInGift = async (req, res) => {
     });
 
     // Envoyer un email de confirmation
-    await sendEmail(
-      email,
-      "Votre code de participation 🎁",
-      `<h2>Bonjour ${name} ${surname},</h2>
-       <p>Merci pour votre participation !</p>
-       <p>Votre code unique :</p>
-       <h1 style="color:green;">${code}</h1>
-       <p>Bonne chance 🍀</p>`
-    );
+   await sendEmail(
+  email,
+  "🎁 Votre code de participation",
+  `
+  <div style="
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+  ">
+
+    <!-- Logo -->
+    <div style="margin-bottom: 20px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bamboo_icon.svg/512px-Bamboo_icon.svg.png"
+           alt="Bambou.tn Logo"
+           style="width: 80px; height: 80px; object-fit: contain;" />
+    </div>
+
+    <!-- Titre -->
+    <h2 style="color:#333;">Bonjour ${name} ${surname},</h2>
+    <p style="font-size:16px; color:#555; margin-top:10px;">
+      Merci pour votre participation à notre jeu-concours ! 🎉
+    </p>
+
+    <!-- Code encadré -->
+    <p style="font-size:17px; color:#333; margin-top:25px;">
+      Voici votre code unique :
+    </p>
+
+    <div style="
+      display: inline-block;
+      border: 3px solid #6c757d;
+      background-color: #ffffff;
+      color: #28a745;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      padding: 20px 50px;
+      border-radius: 15px;
+      margin: 20px auto;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    ">
+      ${code}
+    </div>
+
+    <!-- Footer -->
+    <p style="font-size:16px; color:#555; margin-top:25px;">
+      Bonne chance 🍀
+    </p>
+    <hr style="margin:25px auto; border:none; border-top:1px solid #ddd; width:80%;">
+    <p style="font-size:13px; color:#6c757d;">
+      – L’équipe <strong>Bambou.tn</strong><br>
+      <span style="font-size:12px;">Merci de votre confiance 💚</span>
+    </p>
+  </div>
+  `
+);
+
 
     res.status(201).json({ message: "Participation enregistrée !" });
   } catch (err) {
