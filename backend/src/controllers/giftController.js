@@ -67,14 +67,6 @@ export const participateInGift = async (req, res) => {
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     text-align: center;
   ">
-
-    <!-- Logo -->
-    <div style="margin-bottom: 20px;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bamboo_icon.svg/512px-Bamboo_icon.svg.png"
-           alt="Bambou.tn Logo"
-           style="width: 80px; height: 80px; object-fit: contain;" />
-    </div>
-
     <!-- Titre -->
     <h2 style="color:#333;">Bonjour ${name} ${surname},</h2>
     <p style="font-size:16px; color:#555; margin-top:10px;">
