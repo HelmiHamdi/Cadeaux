@@ -72,7 +72,7 @@ export const participateInGift = async (req, res) => {
     <div style="margin-bottom: 20px;">
       <img src="https://i.postimg.cc/BQ2f6z7C/logo.png"
            alt="Bambou.tn Logo"
-           style="width: 80px; height: 80px; object-fit: contain;" />
+           style="width: 200px; height: 150px; object-fit: contain;" />
     </div>
 
     <!-- Titre -->
