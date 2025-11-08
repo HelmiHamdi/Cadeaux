@@ -13,8 +13,8 @@ function App() {
           {/* Route Admin sans Header */}
           <Route path="/admin" element={<Admin />} />
           
-          {/* Routes normales avec Header */}
-          <Route path="*" element={
+          {/* Routes principales avec Header */}
+          <Route path="/*" element={
             <>
               <Header />
               <Routes>

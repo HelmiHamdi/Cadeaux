@@ -1,8 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Fonction pour fermer le menu mobile
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="bg-bg shadow-lg relative">
@@ -10,21 +16,23 @@ const Header = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img
-              src={logo}
-              alt="BAMBOU"
-              className="h-8 md:h-10"
-            />
+            <Link to="/" onClick={closeMobileMenu}>
+              <img
+                src={logo}
+                alt="BAMBOU"
+                className="h-8 md:h-10"
+              />
+            </Link>
           </div>
 
           {/* Navigation Desktop */}
           <nav className="hidden md:flex space-x-6 lg:space-x-8 ml-auto">
-            <a
-              href="#hero"
+            <Link
+              to="/"
               className="text-text hover:text-primary font-medium transition-colors"
             >
               Accueil
-            </a>
+            </Link>
             <a
               href="#winners"
               className="text-text hover:text-primary font-medium transition-colors"
@@ -37,12 +45,12 @@ const Header = () => {
             >
               Comment ça marche
             </a>
-            <a
-              href="#about"
+            <Link
+              to="/about"
               className="text-text hover:text-primary font-medium transition-colors"
             >
               À propos
-            </a>
+            </Link>
             <a
               href="#contact"
               className="text-text hover:text-primary font-medium transition-colors"
@@ -71,38 +79,38 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50">
             <nav className="flex flex-col space-y-4 p-4">
-              <a
-                href="#hero"
+              <Link
+                to="/"
                 className="text-text hover:text-primary font-medium transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Accueil
-              </a>
+              </Link>
               <a
                 href="#winners"
                 className="text-text hover:text-primary font-medium transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Gagnants
               </a>
               <a
                 href="#how-it-works"
                 className="text-text hover:text-primary font-medium transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Comment ça marche
               </a>
-              <a
-                href="#about"
+              <Link
+                to="/about"
                 className="text-text hover:text-primary font-medium transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 À propos
-              </a>
+              </Link>
               <a
                 href="#contact"
                 className="text-text hover:text-primary font-medium transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Contact
               </a>
