@@ -1,27 +1,36 @@
-
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
 import Admin from './pages/Admin';
 
 function App() {
-  // Vérifier si nous sommes sur la route admin
-  const isAdminPage = window.location.pathname === '/admin';
-  
   return (
-    <div className="App font-main">
-      {/* Ne pas afficher le Header sur la page admin */}
-      {!isAdminPage && <Header />}
-      
-      {/* Afficher le composant correspondant à la route */}
-      {isAdminPage ? <Admin /> : (
-        <>
-          <Home />
-          <About />
-        </>
-      )}
-    </div>
+    <Router>
+      <div className="App font-main">
+        <Routes>
+          {/* Route Admin sans Header */}
+          <Route path="/admin" element={<Admin />} />
+          
+          {/* Routes normales avec Header */}
+          <Route path="*" element={
+            <>
+              <Header />
+              <Routes>
+                <Route path="/" element={
+                  <>
+                    <Home />
+                    <About />
+                  </>
+                } />
+                <Route path="/about" element={<About />} />
+              </Routes>
+            </>
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
