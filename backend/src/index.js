@@ -36,11 +36,13 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/codes", codeRoutes);
 app.use("/api/winners", winnerRoutes); 
 // --- Servir React en production ---
+// --- Servir React en production ---
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("/{*any}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  // Capture toutes les autres routes et renvoie index.html (pour permettre le routage frontend)
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
   });
 }
 
