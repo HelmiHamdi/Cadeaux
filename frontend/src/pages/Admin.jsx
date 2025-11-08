@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import AdminLogin from './AdminLogin';
-import AdminDashboard from './AdminDashboard';
-import { authService } from '../services/adminApi';
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import AdminLogin from "./AdminLogin";
+import AdminDashboard from "./AdminDashboard";
+import { authService } from "../services/adminApi";
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Vérifier si l'admin est déjà connecté
     const checkAuth = () => {
       const authenticated = authService.isAuthenticated();
       setIsAuthenticated(authenticated);
       setLoading(false);
     };
-
     checkAuth();
   }, []);
 
@@ -30,13 +29,34 @@ const Admin = () => {
   }
 
   return (
-    <div>
-      {isAuthenticated ? (
-        <AdminDashboard />
-      ) : (
-        <AdminLogin onLogin={setIsAuthenticated} />
-      )}
-    </div>
+    <Routes>
+      {/* 🟣 Page login uniquement quand on va sur /admin/login */}
+      <Route
+        path="/login"
+        element={
+          isAuthenticated ? (
+            <Navigate to="/admin/dashboard" />
+          ) : (
+            <AdminLogin onLogin={setIsAuthenticated} />
+          )
+        }
+      />
+
+      {/* 🟢 Dashboard seulement si connecté */}
+      <Route
+        path="/dashboard"
+        element={
+          isAuthenticated ? (
+            <AdminDashboard />
+          ) : (
+            <Navigate to="/admin/login" />
+          )
+        }
+      />
+
+      {/* Si on tape juste /admin → aller vers /admin/login */}
+      <Route path="/" element={<Navigate to="/admin/login" />} />
+    </Routes>
   );
 };
 

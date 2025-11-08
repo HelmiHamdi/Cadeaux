@@ -1,54 +1,51 @@
-import React from 'react';
-import Header from './components/Header';
-import Home from './pages/Home';
-import About from './pages/About';
-import Admin from './pages/Admin';
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Admin from "./pages/Admin";
+
+function ScrollToHomeOnFirstLoad() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // si on ouvre directement /admin/login (premier chargement)
+    // redirige vers /
+    if (location.pathname !== "/" && !location.pathname.startsWith("/admin")) {
+      navigate("/");
+    }
+  }, [location, navigate]);
+
+  return null;
+}
 
 function App() {
-  // Méthode pour vous identifier
-  const isYouTheAdmin = () => {
-    // OPTION 1: Vérifier par URL spéciale
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('admin') === 'votre-code-secret';
-    
-    // OPTION 2: Vérifier par localStorage
-    // return localStorage.getItem('adminToken') === 'votre-token-secret';
-  };
-
-  const isAdminPath = window.location.pathname === '/admin';
-  const shouldShowAdmin = isAdminPath && isYouTheAdmin();
-  
-  // SI quelqu'un essaie d'accéder à /admin sans autorisation
-  // On le REDIRIGE vers la page d'accueil
-  if (isAdminPath && !isYouTheAdmin()) {
-    // Changer l'URL sans recharger la page
-    window.history.replaceState(null, '', '/');
-    
-    return (
-      <div className="App font-main">
-        <Header />
-        <Home />
-        <About />
-      </div>
-    );
-  }
-  
   return (
-    <div className="App font-main">
-      {/* Afficher Header sauf si VOUS êtes sur admin */}
-      {!shouldShowAdmin && <Header />}
-      
-      {/* Si VOUS êtes sur admin ET c'est vous, montrer Admin */}
-      {shouldShowAdmin ? (
-        <Admin />
-      ) : (
-        /* Sinon, TOUJOURS montrer l'accueil à tout le monde */
-        <>
-          <Home />
-          <About />
-        </>
-      )}
-    </div>
+    <Router>
+      <ScrollToHomeOnFirstLoad />
+      <div className="App font-main">
+        <Routes>
+          {/* Page d'accueil toujours visible */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <Home />
+                <About />
+              </>
+            }
+          />
+
+          {/* Page admin accessible manuellement */}
+          <Route path="/admin/*" element={<Admin />} />
+
+          {/* Redirection des routes inconnues */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
