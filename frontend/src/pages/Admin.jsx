@@ -8,6 +8,7 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Vérifier si l'admin est déjà connecté
     const checkAuth = () => {
       const authenticated = authService.isAuthenticated();
       setIsAuthenticated(authenticated);
