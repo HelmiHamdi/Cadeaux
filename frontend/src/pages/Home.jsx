@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import GiftCard from '../components/GiftCard';
 import ParticipationModal from '../components/ParticipationModal';
-import { giftService } from '../services/api';
-import { adminService } from '../services/adminApi';
+import { giftService,drawService } from '../services/api';
+
 
 const Home = () => {
   const [gifts, setGifts] = useState([]);
@@ -35,7 +35,7 @@ const Home = () => {
  const fetchWinners = async () => {
     try {
       console.log("🏆 Chargement des gagnants...");
-      const response = await adminService.getAllWinners();
+      const response = await drawService.getWeeklyWinners();
       console.log("📊 Données des gagnants reçues:", response.data);
       setWinners(response.data);
     } catch (error) {

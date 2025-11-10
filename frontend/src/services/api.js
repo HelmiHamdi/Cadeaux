@@ -12,6 +12,7 @@ const api = axios.create({
 
 export const giftService = {
   getAllGifts: () => api.get('/gifts'),
+  getAllWinners: () => api.get("/winners/all-winners"),
   participate: async (giftId, data) => {
     try {
       const response = await api.post(`/gifts/${giftId}/participate`, data);

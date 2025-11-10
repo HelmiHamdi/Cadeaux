@@ -79,7 +79,7 @@ export const adminService = {
   searchByCodes: (codes) => adminApi.post("/codes/search-multiple", { codes }),
   selectManualWinners: (winnersData) =>
     adminApi.post("/winners/select-winners", winnersData),
-  getAllWinners: () => adminApi.get("/winners/all-winners"),
+  //getAllWinners: () => adminApi.get("/winners/all-winners"),
 };
 
 export default adminApi;
