@@ -73,7 +73,7 @@ export const participateInGift = async (req, res) => {
     <!-- Titre -->
     <h2 style="color:#333;">Bonjour ${name} ${surname},</h2>
     <p style="font-size:16px; color:#555; margin-top:10px;">
-      Merci pour votre participation à notre jeu-concours ! 🎉
+      Merci pour votre participation à notre jeu-cadeaux ! 🎉
     </p>
 
     <!-- Code encadré -->
