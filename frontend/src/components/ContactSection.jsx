@@ -16,12 +16,12 @@ const ContactSection = () => {
             {
               icon: <Phone className="w-7 h-7 text-primary" />,
               title: "Téléphone",
-              value: "+216 55 123 456",
+              value: "+216 54 428 009",
             },
             {
               icon: <Mail className="w-7 h-7 text-primary" />,
               title: "Email",
-              value: "contact@tirage-gagnant.com",
+              value: "contact@bambou.tn",
             },
             {
               icon: <MapPin className="w-7 h-7 text-primary" />,
