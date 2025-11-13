@@ -25,6 +25,12 @@ const Header = () => {
             >
               Accueil
             </a>
+              <a
+              href="#partners"
+              className="text-text hover:text-primary font-medium transition-colors"
+            >
+              Partenaire
+            </a>
             <a
               href="#winners"
               className="text-text hover:text-primary font-medium transition-colors"

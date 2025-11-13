@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import GiftCard from '../components/GiftCard';
 import ParticipationModal from '../components/ParticipationModal';
 import { giftService,drawService } from '../services/api';
+import mytek from '../assets/mytek.png';
+import tokyo from '../assets/tokyo.png';
+import tunisie from '../assets/tunisie.png';
+import tuto from '../assets/tuto.png';
 
 
 const Home = () => {
@@ -180,7 +184,8 @@ const handleSubmitParticipation = async (giftId, formData) => {
       🎁 Gagnez des <span className="text-accent animate-text-glow">cadeaux </span> chaque semaine !
     </h1>
     <p className="text-lg md:text-xl text-text-light max-w-md mx-auto md:mx-0 leading-relaxed">
-      Participez gratuitement à nos tirages au sort exclusifs et tentez de remporter 
+      Participez gratuitement à nos tirages au sort exclusifs et tentez de remporter vos cadeaux
+
     </p>
     <button className="bg-accent text-primary font-bold px-8 py-4 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 animate-pulse-glow text-lg">
       Je participe gratuitement 
@@ -231,33 +236,115 @@ const handleSubmitParticipation = async (giftId, formData) => {
         </div>
       </section>
 
-      {/* Section Comment ça marche */}
-      <section className="bg-white py-12" id='how-it-works' >
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-text mb-12">
-            Comment ça marche ?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
-              <h3 className="text-xl font-semibold text-text mb-2">Inscris-toi</h3>
-              <p className="text-text-light">Choisis le cadeau que tu veux</p>
+
+
+{/* Section Nos partenaires simplifiée */}
+{/* Section Nos partenaires responsive */}
+<section className="bg-white py-12 md:py-20" id='partners'>
+  <div className="container mx-auto px-4">
+    <h2 className="text-2xl md:text-4xl font-bold text-center text-text mb-12 md:mb-20">
+      Nos partenaires
+    </h2>
+    
+    {/* Container du carrousel */}
+    <div className="relative max-w-7xl mx-auto">
+      {/* Dégradés latéraux - seulement sur desktop */}
+      <div className="hidden md:block absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+      <div className="hidden md:block absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+      
+      {/* Carrousel pour desktop */}
+      <div className="hidden md:block overflow-hidden">
+        <div className="flex animate-scroll space-x-8 py-6">
+          {/* Génération des logos en double pour l'effet infini */}
+          {[...Array(2)].map((_, setIndex) => (
+            <div key={setIndex} className="flex space-x-8 flex-shrink-0">
+              {[
+                { src: mytek, alt: "Mytek" },
+                { src: tokyo, alt: "Tokyo" },
+                { src: tunisie, alt: "Tunisie" },
+                { src: tuto, alt: "Tuto" }
+              ].map((partner, index) => (
+                <div 
+                  key={`desktop-${setIndex}-${index}`}
+                  className="w-64 h-32 flex items-center justify-center bg-white rounded-xl shadow-lg border-2 border-[#F7F3ED] hover:border-primary transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                >
+                  <img 
+                    src={partner.src}
+                    alt={partner.alt} 
+                    className="h-20 object-contain transition-transform duration-300 hover:scale-110"
+                  />
+                </div>
+              ))}
             </div>
-            <div className="text-center">
-              <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
-              <h3 className="text-xl font-semibold text-text mb-2">Participe gratuitement</h3>
-              <p className="text-text-light">Remplis le formulaire de participation</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
-              <h3 className="text-xl font-semibold text-text mb-2">Découvre les résultats</h3>
-              <p className="text-text-light">Attends le tirage au sort hebdomadaire</p>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
 
+      {/* Carrousel pour mobile */}
+      <div className="md:hidden overflow-hidden">
+        <div className="flex animate-scroll-mobile space-x-6 py-4">
+          {/* Génération des logos en double pour l'effet infini sur mobile */}
+          {[...Array(3)].map((_, setIndex) => (
+            <div key={setIndex} className="flex space-x-6 flex-shrink-0">
+              {[
+                { src: mytek, alt: "Mytek" },
+                { src: tokyo, alt: "Tokyo" },
+                { src: tunisie, alt: "Tunisie" },
+                { src: tuto, alt: "Tuto" }
+              ].map((partner, index) => (
+                <div 
+                  key={`mobile-${setIndex}-${index}`}
+                  className="w-48 h-24 flex items-center justify-center bg-white rounded-lg shadow-md border-2 border-[#F7F3ED] transition-all duration-300 active:scale-105"
+                >
+                  <img 
+                    src={partner.src}
+                    alt={partner.alt} 
+                    className="h-16 object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <style jsx>{`
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-50% - 2rem));
+      }
+    }
+    
+    @keyframes scroll-mobile {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-33.333% - 1.5rem));
+      }
+    }
+    
+    .animate-scroll {
+      animation: scroll 30s linear infinite;
+    }
+    
+    .animate-scroll-mobile {
+      animation: scroll-mobile 25s linear infinite;
+    }
+    
+    /* Pause l'animation au survol sur desktop */
+    @media (min-width: 768px) {
+      .animate-scroll:hover {
+        animation-play-state: paused;
+      }
+    }
+  `}</style>
+</section>
 <section className="bg-bg py-12" id="winners">
   <div className="container mx-auto px-4">
     <h2 className="text-3xl font-bold text-center text-text mb-8">Nos gagnants</h2>
@@ -291,7 +378,31 @@ const handleSubmitParticipation = async (giftId, formData) => {
     </div>
   </div>
 </section>
-
+  {/* Section Comment ça marche */}
+      <section className="bg-white py-12" id='how-it-works' >
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-text mb-12">
+            Comment ça marche ?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+              <h3 className="text-xl font-semibold text-text mb-2">Inscris-toi</h3>
+              <p className="text-text-light">Choisis le cadeau que tu veux</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+              <h3 className="text-xl font-semibold text-text mb-2">Participe gratuitement</h3>
+              <p className="text-text-light">Remplis le formulaire de participation</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+              <h3 className="text-xl font-semibold text-text mb-2">Découvre les résultats</h3>
+              <p className="text-text-light">Attends le tirage au sort hebdomadaire</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Modal de participation */}
       <ParticipationModal
