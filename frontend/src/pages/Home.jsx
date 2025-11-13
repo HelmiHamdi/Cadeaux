@@ -177,10 +177,10 @@ const handleSubmitParticipation = async (giftId, formData) => {
   {/* Texte à droite */}
   <div className="w-full md:w-1/2 text-center md:text-left space-y-6 z-10 animate-text-slide">
     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-text">
-      🎁 Gagnez des <span className="text-accent animate-text-glow">cadeaux incroyables</span> chaque semaine !
+      🎁 Gagnez des <span className="text-accent animate-text-glow">cadeaux </span> chaque semaine !
     </h1>
     <p className="text-lg md:text-xl text-text-light max-w-md mx-auto md:mx-0 leading-relaxed">
-      Participez gratuitement à nos tirages au sort exclusifs et tentez de remporter les derniers smartphones haut de gamme !
+      Participez gratuitement à nos tirages au sort exclusifs et tentez de remporter 
     </p>
     <button className="bg-accent text-primary font-bold px-8 py-4 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 animate-pulse-glow text-lg">
       Je participe gratuitement 
