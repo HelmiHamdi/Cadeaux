@@ -50,6 +50,7 @@ body {
 .glow-effect {
   animation: glow 2s ease-in-out infinite;
 }
+
 /* Animations pour le cadeau et les confettis */
 @keyframes confetti {
   0% {
@@ -80,6 +81,7 @@ body {
 .animate-gift-open {
   animation: giftOpen 0.6s ease-out forwards;
 }
+
 /* Animation de pulsation pour le cadeau */
 @keyframes pulse-glow {
   0%, 100% {
@@ -93,6 +95,7 @@ body {
 .animate-pulse-glow {
   animation: pulse-glow 2s infinite;
 }
+
 /* Animation de rebond pour le cadeau */
 @keyframes bounce {
   0%, 100% {
@@ -107,8 +110,6 @@ body {
   animation: bounce 1s infinite;
 }
 
-/* Ajoutez ces animations à votre fichier CSS */
-
 /* Animation de flottement pour le téléphone */
 @keyframes float-phone {
   0%, 100% { 
@@ -169,81 +170,6 @@ body {
   animation: pulse-glow 2s infinite;
 }
 
-
-
-/* Animation de flottement pour le téléphone */
-@keyframes float-phone {
-  0%, 100% { 
-    transform: translateY(0) rotate(-5deg); 
-  }
-  50% { 
-    transform: translateY(-20px) rotate(5deg); 
-  }
-}
-
-.animate-float-phone {
-  animation: float-phone 3s ease-in-out infinite;
-}
-
-/* Animation d'ouverture du cadeau */
-@keyframes giftOpen {
-  0% {
-    transform: scale(0.8) translateX(-20px);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) translateX(0);
-    opacity: 1;
-  }
-}
-
-.animate-gift-open {
-  animation: giftOpen 0.8s ease-out forwards;
-}
-
-/* Animation des confettis */
-@keyframes confetti {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100px) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-.animate-confetti {
-  animation: confetti 3s ease-out infinite;
-}
-
-/* Animation de pulsation pour le bouton */
-@keyframes pulse-glow {
-  0%, 100% { 
-    box-shadow: 0 0 5px rgba(197, 167, 98, 0.5); 
-  }
-  50% { 
-    box-shadow: 0 0 20px rgba(197, 167, 98, 0.8); 
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s infinite;
-}
-
-/* Animation de rebond pour le cadeau dans le téléphone */
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-bounce {
-  animation: bounce 1.5s infinite;
-}
 /* Animation 3D du téléphone */
 @keyframes phone-3d {
   0%, 100% { 
@@ -432,24 +358,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Animation du carrousel */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-100% / 2));
-  }
-}
-
-.animate-scroll {
-  animation: scroll 40s linear infinite;
-}
-
-.animate-scroll:hover {
-  animation-play-state: paused;
-}
-
 /* Animation de flottement pour les cartes */
 @keyframes float {
   0%, 100% {
@@ -462,4 +370,127 @@ body {
 
 .group:hover .float-animation {
   animation: float 2s ease-in-out infinite;
+}
+
+/* 🎠 ANIMATIONS DU CARROUSEL DES PARTENAIRES */
+
+/* Animation du carrousel desktop */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 2rem));
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+/* Animation du carrousel mobile */
+@keyframes scroll-mobile {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-33.333% - 1.5rem));
+  }
+}
+
+.animate-scroll-mobile {
+  animation: scroll-mobile 25s linear infinite;
+}
+
+/* Pause l'animation au survol sur desktop */
+@media (min-width: 768px) {
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Styles pour les icônes de navigation mobile - DESIGN SIMPLE ET FIXE */
+.carousel-nav-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #1F4D3E;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: auto;
+  transition: all 0.2s ease;
+}
+
+.carousel-nav-icon:hover {
+  color: #2E6653;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav-icon:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-nav-prev {
+  left: 0;
+}
+
+.carousel-nav-next {
+  right: 0;
+}
+
+/* Indicateurs de pagination */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.carousel-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.carousel-indicator.active {
+  width: 1.5rem;
+  background-color: #1F4D3E;
+}
+
+/* Transition fluide pour le carrousel mobile */
+.carousel-mobile-track {
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Amélioration de l'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll,
+  .animate-scroll-mobile,
+  .animate-phone-3d,
+  .animate-gift-spin,
+  .animate-star-orbit,
+  .animate-star-orbit-reverse,
+  .animate-confetti-slow,
+  .animate-confetti-medium,
+  .animate-confetti-fast,
+  .animate-pulse-glow,
+  .animate-bounce,
+  .animate-float-phone {
+    animation: none;
+  }
+  
+  .carousel-mobile-track {
+    transition: none;
+  }
 }

@@ -85,6 +85,13 @@ const Header = () => {
                 Accueil
               </a>
               <a
+                href="#partners"
+                className="text-text hover:text-primary font-medium transition-colors py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Partenaires
+              </a>
+              <a
                 href="#winners"
                 className="text-text hover:text-primary font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
