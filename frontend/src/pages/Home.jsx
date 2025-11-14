@@ -198,7 +198,7 @@ const Home = () => {
             🎁 Gagnez des <span className="text-accent animate-text-glow">cadeaux </span> chaque semaine !
           </h1>
           <p className="text-lg md:text-xl text-text-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            Participez gratuitement à nos tirages au sort exclusifs et tentez de remporter vos cadeaux
+          Participez gratuitement et tentez de gagner des cadeaux exclusifs !
           </p>
           <button className="bg-accent text-primary font-bold px-8 py-4 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 animate-pulse-glow text-lg">
             Je participe gratuitement 
