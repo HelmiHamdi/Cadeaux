@@ -12,7 +12,7 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
 
   // Date de lancement : 28 novembre 2025 à 20h00 temps Tunisien
-  const launchDate = new Date('2025-11-18T14:56:00+01:00');
+  const launchDate = new Date('2025-11-18T14:58:00+01:00');
 
   // Vérifier si nous sommes sur la route admin
   const isAdminPage = window.location.pathname === '/admin';
