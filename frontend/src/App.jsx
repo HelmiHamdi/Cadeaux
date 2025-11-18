@@ -12,7 +12,7 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
 
   // Date de lancement : 28 novembre 2025 à 20h00 temps Tunisien
-  const launchDate = new Date('2025-11-28T20:00:00+01:00');
+  const launchDate = new Date('2025-11-18T14:56:00+01:00');
 
   // Vérifier si nous sommes sur la route admin
   const isAdminPage = window.location.pathname === '/admin';
@@ -30,7 +30,7 @@ function App() {
       clearInterval(timer);
       window.removeEventListener('resize', resizeListener);
     };
-  }, []); // ← CORRECTION : Ajout du tableau de dépendances vide
+  }, ); // ← CORRECTION : Ajout du tableau de dépendances vide
 
   const checkMobileView = () => {
     setIsMobile(window.innerWidth <= 768);
