@@ -146,15 +146,7 @@ function App() {
             </p>
           </div>
 
-          {/* Indicateur de swipe pour mobile */}
-          {isMobile && (
-            <div className="mt-6 animate-bounce-slow">
-              <div className="flex items-center justify-center gap-2 text-sm opacity-70">
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          )}
+         
 
           {/* Message spécial pour la page admin */}
           {isAdminPage && (
