@@ -150,8 +150,8 @@ function App() {
           {isMobile && (
             <div className="mt-6 animate-bounce-slow">
               <div className="flex items-center justify-center gap-2 text-sm opacity-70">
-                <span>👆</span>
-                <span>Scroll pour voir plus</span>
+                <span></span>
+                <span></span>
               </div>
             </div>
           )}
