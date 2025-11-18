@@ -494,3 +494,34 @@ body {
     transition: none;
   }
 }
+/* Ajoutez ce CSS dans votre fichier de styles global */
+
+/* Animation de flottement */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animation de pulse améliorée */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(197, 167, 98, 0.6);
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 0 0 30px rgba(197, 167, 98, 0.9);
+  }
+}
+
+.animate-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
